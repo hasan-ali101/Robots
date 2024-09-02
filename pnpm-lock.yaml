@@ -29,6 +29,9 @@ importers:
       three:
         specifier: ^0.167.1
         version: 0.167.1
+      three-stdlib:
+        specifier: ^2.32.2
+        version: 2.32.2(three@0.167.1)
     devDependencies:
       '@types/node':
         specifier: ^20

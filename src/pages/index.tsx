@@ -1,18 +1,36 @@
-import { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import Model from "../components/robin";
-import { OrbitControls } from "@react-three/drei";
+import { useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+
+import { Mesh } from "three";
+import Scene from "@/components/Scene";
 
 export default function Home() {
+  const group = useRef<Mesh>(null!);
+
+  const rotate = () => {
+    group.current.rotation.y += Math.PI;
+  };
+
   return (
-    <Canvas className="w-full bg-blue-100" shadows>
-      <ambientLight />
-      <OrbitControls />
-      <mesh scale={0.8} position={[0, -2, 0]}>
-        <Suspense>
-          <Model />
-        </Suspense>
-      </mesh>
-    </Canvas>
+    <>
+      <div className="w-screen h-screen relative">
+        <Canvas className={`z-0 bg-blue-100`} shadows>
+          <Scene ref={group} />
+        </Canvas>
+
+        <div className="w-screen h-40 absolute z-10 opacity-80 top-0 left-0">
+          <div className="relative w-full h-full">
+            <button
+              className="bg-black text-white absolute bottom-10 right-10"
+              onClick={() => {
+                rotate();
+              }}
+            >
+              switch
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
