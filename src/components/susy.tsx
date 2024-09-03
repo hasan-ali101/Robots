@@ -8,7 +8,7 @@ export default function Susy({ path }: { path: string }) {
 
   const entryAnimation = async () => {
     if (!actions.landing) return;
-    actions.landing.play();
+    await actions.landing.play();
     actions.landing.setLoop(THREE.LoopRepeat, 1);
     actions.landing.clampWhenFinished = true;
     actions["idle"]?.play();
@@ -19,11 +19,7 @@ export default function Susy({ path }: { path: string }) {
   }, [actions.landing, actions.idle]);
 
   return (
-    <Float
-      speed={10} // Animation speed, defaults to 1
-      rotationIntensity={0} // XYZ rotation intensity, defaults to 1
-      floatingRange={[-0.2, 0]}
-    >
+    <Float speed={10} rotationIntensity={0} floatingRange={[-0.2, 0]}>
       <primitive ref={ref} object={gltf.scene} />
     </Float>
   );

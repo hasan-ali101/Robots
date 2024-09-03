@@ -13,8 +13,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-screen h-screen relative">
-        <Canvas className={`z-0 bg-blue-100`} shadows>
+      <div className="w-screen h-screen relative  bg-sky-950">
+        <Canvas className={`z-0`} shadows>
           <Scene ref={group} />
         </Canvas>
 
