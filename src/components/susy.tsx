@@ -2,7 +2,13 @@ import { Float, useAnimations, useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
 import * as THREE from "three";
 
-export default function Susy({ path }: { path: string }) {
+export default function Susy({
+  path,
+  position,
+}: {
+  path: string;
+  position: [number, number, number];
+}) {
   const gltf = useGLTF(path);
   const { ref, actions } = useAnimations(gltf.animations);
 
@@ -18,9 +24,5 @@ export default function Susy({ path }: { path: string }) {
     entryAnimation();
   }, [actions.landing, actions.idle]);
 
-  return (
-    <Float speed={10} rotationIntensity={0} floatingRange={[-0.2, 0]}>
-      <primitive ref={ref} object={gltf.scene} />
-    </Float>
-  );
+  return <primitive position={position} ref={ref} object={gltf.scene} />;
 }

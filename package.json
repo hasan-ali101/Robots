@@ -12,9 +12,11 @@
     "@react-three/drei": "^9.111.3",
     "@react-three/fiber": "^8.17.6",
     "@types/three": "^0.167.2",
+    "clsx": "^2.1.1",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18",
+    "tailwind-merge": "^2.5.2",
     "three": "^0.167.1",
     "three-stdlib": "^2.32.2"
   },

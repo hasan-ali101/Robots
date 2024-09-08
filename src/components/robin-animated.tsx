@@ -51,26 +51,24 @@ export function Robin({ skin }: { skin: string }) {
   }
 
   return (
-    <Float speed={10} rotationIntensity={0} floatingRange={[-0.2, 0]}>
-      <group dispose={null}>
-        <group name="Scene">
-          <group
-            name="R_Robin"
-            position={[0, 0, 0.843]}
-            rotation={[-Math.PI / 2, 0, Math.PI]}
-          >
-            <primitive object={nodes.Root} />
-            <skinnedMesh
-              ref={ref as any}
-              name="CH_Susy001"
-              geometry={nodes.CH_Susy001.geometry}
-              material={originalMaterial}
-              skeleton={nodes.CH_Susy001.skeleton}
-            />
-          </group>
+    <group dispose={null}>
+      <group name="Scene">
+        <group
+          name="R_Robin"
+          position={[0, 0, 0.843]}
+          rotation={[-Math.PI / 2, 0, Math.PI]}
+        >
+          <primitive object={nodes.Root} />
+          <skinnedMesh
+            ref={ref as any}
+            name="CH_Susy001"
+            geometry={nodes.CH_Susy001.geometry}
+            material={originalMaterial}
+            skeleton={nodes.CH_Susy001.skeleton}
+          />
         </group>
       </group>
-    </Float>
+    </group>
   );
 }
 
