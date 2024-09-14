@@ -21,33 +21,30 @@ const Scene = React.forwardRef((props, ref) => {
   useEffect(() => {
     wood_platform.scene.traverse((child) => {
       if (child.isMesh) {
-        child.material.color.setScalar(3);
-      }
-    });
-    wood_platform_2.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.material.color.setScalar(2.5);
+        child.material.color.setScalar(6);
       }
     });
   }, []);
 
   return (
     <mesh scale={zoom}>
+      <OrbitControls
+        enablePan={false}
+        enableZoom={false}
+        minAzimuthAngle={-Math.PI / 4}
+        maxAzimuthAngle={Math.PI / 4}
+        minPolarAngle={Math.PI / 2}
+        maxPolarAngle={Math.PI / 2}
+      />
       <ambientLight intensity={1} castShadow />
       {showSpotlight && (
         <Spot startPosition={[0.1, 2.8, 0]} targetPosition={[0, 0, 0]} />
       )}
-      <mesh position={[0.7, -2, -2]} rotation-y={0.3} rotation-x={0} ref={ref}>
-        <mesh
-          scale={0.8}
-          position={[-0.75, -0.23, 0.5]}
-          rotation-y={-0.2}
-          rotation-x={-0.1}
-          rotation-z={-0.05}
-        >
+      <mesh position={[0, -1.75, 0]} ref={ref}>
+        <mesh scale={0.6}>
           <mesh
             className="cursor-pointer"
-            scale={0.4}
+            scale={0.38}
             onClick={() => {
               setShowSpotlight(!showSpotlight);
             }}
@@ -59,12 +56,16 @@ const Scene = React.forwardRef((props, ref) => {
 
           <mesh visible={props.bot === "robin"}>
             <Suspense>
-              <Robin skin={props.skin} />
+              <Robin
+                skin={props.skin}
+                rotation-z={-Math.PI}
+                rotation-x={-Math.PI / 2}
+              />
             </Suspense>
           </mesh>
           <mesh visible={props.bot === "susy"}>
             <Suspense>
-              <Susy position={[-0.2, 0.05, -0.2]} path="/susy.glb" />
+              <Susy position={[-0.2, 0, 0.2]} path="/susy.glb" />
             </Suspense>
           </mesh>
         </mesh>
