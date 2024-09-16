@@ -26,7 +26,7 @@ export default function Spot({
       color={"white"}
       ref={light}
       penumbra={1}
-      angle={Math.PI}
+      angle={Math.PI / 1.3}
       anglePower={1}
       intensity={1}
       position={startPosition}

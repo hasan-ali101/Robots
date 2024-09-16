@@ -31,17 +31,17 @@ const Scene = React.forwardRef((props, ref) => {
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        minAzimuthAngle={-Math.PI / 4}
-        maxAzimuthAngle={Math.PI / 4}
+        // minAzimuthAngle={-Math.PI / 4}
+        // maxAzimuthAngle={Math.PI / 4}
         minPolarAngle={Math.PI / 2}
         maxPolarAngle={Math.PI / 2}
       />
       <ambientLight intensity={1} castShadow />
       {showSpotlight && (
-        <Spot startPosition={[0.1, 2.8, 0]} targetPosition={[0, 0, 0]} />
+        <Spot startPosition={[0.1, 3, 0]} targetPosition={[0, 0, 0]} />
       )}
-      <mesh position={[0, -1.75, 0]} ref={ref}>
-        <mesh scale={0.6}>
+      <mesh position={[0, -1.73, 0]} ref={ref}>
+        <mesh scale={0.65}>
           <mesh
             className="cursor-pointer"
             scale={0.38}
