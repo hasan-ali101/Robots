@@ -47,7 +47,7 @@ export default function Home() {
                 alt="ship"
                 width={800}
                 height={800}
-                className="opacity-70 h-full w-full  border-white border-x-8"
+                className="select-none opacity-70 h-full w-full  border-white border-x-8"
               />
             </div>
 
@@ -57,7 +57,12 @@ export default function Home() {
                 " bg-[#506e88] opacity-80 transition-all duration-[1500ms] absolute z-30 right-0 top-[30%] translate-y-[-50%] h-[700px]"
               )}
             >
-              <div className="text-xs sm:text-sm md:text-base w-full h-full p-4 flex flex-col justify-center items-center  gap-4">
+              <div
+                className={cn(
+                  doorsOpen ? "opacity-100" : "opacity-0",
+                  "text-xs sm:text-sm transition-opacity duration-[2000ms] md:text-base w-full h-full p-4 flex flex-col justify-center items-center  gap-4"
+                )}
+              >
                 <button
                   className="bg-black p-3 rounded-xl shadow-2xl text-white"
                   onClick={() => {

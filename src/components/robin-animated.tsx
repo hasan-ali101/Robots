@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useGraph } from "@react-three/fiber";
 import { useGLTF, useAnimations, useTexture } from "@react-three/drei";
 import { GLTF, SkeletonUtils } from "three-stdlib";
+import { on } from "events";
 
 type ActionName =
   | "idle_1"
-  | "stretch_1"
+  | "stretch_4"
   | "land_1"
-  | "stretch_1"
-  | "stretch_2"
+  | "stretch_4"
+  | "stretch_4"
   | "wave_1";
 
 interface GLTFAction extends THREE.AnimationClip {
@@ -28,7 +29,7 @@ type GLTFResult = GLTF & {
 };
 
 export function Robin(props: { skin: string }) {
-  const { scene, animations } = useGLTF("/robin_3.glb");
+  const { scene, animations } = useGLTF("/robin_5.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as GLTFResult;
   const { actions, ref } = useAnimations(animations);
@@ -69,38 +70,61 @@ export function Robin(props: { skin: string }) {
     actions.land_1.getMixer().addEventListener("finished", onLandFinish);
   };
 
+  let stretchTimeout: NodeJS.Timeout;
+
   const stretch = () => {
-    setTimeout(() => {
-      actions["idle_1"] && actions["idle_1"].paused;
-      setTimeout(() => {
-        if (actions.stretch_1 && actions.idle_1) {
-          actions["idle_1"].fadeOut(0.5);
+    stretchTimeout = setTimeout(() => {
+      if (actions.idle_2?.isRunning()) {
+        stretch();
+        return;
+      }
+      if (actions.stretch_4 && actions.idle_1) {
+        actions["idle_1"].fadeOut(0.5);
 
-          actions.stretch_1
-            .reset()
-            .setLoop(THREE.LoopRepeat, 2)
-            .fadeIn(0.3)
-            .play();
-          actions.stretch_1.clampWhenFinished = true;
-          // When stretch_1 finishes, fade it out
-          const onStretchFinish = () => {
-            actions.stretch_1?.fadeOut(0.5);
-            actions.idle_1?.reset().fadeIn(0.5).play();
-
-            // Clean up stretch_1 listener
-            actions.stretch_1
-              ?.getMixer()
-              .removeEventListener("finished", onStretchFinish);
-
-            stretch();
-          };
-
-          actions.stretch_1
+        actions.stretch_4
+          .reset()
+          .setLoop(THREE.LoopRepeat, 1)
+          .fadeIn(0.3)
+          .play();
+        actions.stretch_4.clampWhenFinished = true;
+        const onStretchFinish = () => {
+          actions.stretch_4?.fadeOut(0.5);
+          actions.idle_1?.reset().fadeIn(0.5).play();
+          actions.stretch_4
             ?.getMixer()
-            .addEventListener("finished", onStretchFinish);
-        }
-      }, 500);
-    }, 10000);
+            .removeEventListener("finished", onStretchFinish);
+
+          stretch();
+        };
+
+        actions.stretch_4
+          ?.getMixer()
+          .addEventListener("finished", onStretchFinish);
+      }
+    }, 5000);
+  };
+
+  const dance = () => {
+    if (actions["idle_1"]?.isRunning() || actions["stretch_4"]?.isRunning()) {
+      actions["idle_1"]?.isRunning() && actions["idle_1"]?.fadeOut(0.5);
+      actions["stretch_4"]?.isRunning() && actions["stretch_4"].fadeOut(0.5);
+      actions["idle_2"]
+        ?.reset()
+        .setLoop(THREE.LoopRepeat, 1)
+        .fadeIn(0.5)
+        .play();
+      actions["idle_2"]!.clampWhenFinished = true;
+
+      const onDanceFinish = () => {
+        actions["idle_2"]?.fadeOut(0.5);
+        actions["idle_1"]?.reset().fadeIn(0.5).play();
+        actions["idle_2"]
+          ?.getMixer()
+          .removeEventListener("finished", onDanceFinish);
+      };
+
+      actions["idle_2"]?.getMixer().addEventListener("finished", onDanceFinish);
+    }
   };
 
   useEffect(() => {
@@ -119,7 +143,13 @@ export function Robin(props: { skin: string }) {
   }
 
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      onClick={() => {
+        dance();
+      }}
+    >
       <group name="Scene">
         <group
           name="R_Robin"
