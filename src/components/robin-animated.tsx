@@ -7,10 +7,10 @@ import { on } from "events";
 
 type ActionName =
   | "idle_1"
-  | "stretch_4"
+  | "stretch_1"
   | "land_1"
-  | "stretch_4"
-  | "stretch_4"
+  | "stretch_1"
+  | "stretch_1"
   | "wave_1";
 
 interface GLTFAction extends THREE.AnimationClip {
@@ -26,6 +26,21 @@ type GLTFResult = GLTF & {
     M_RobinSport: THREE.MeshStandardMaterial;
   };
   animations: GLTFAction[];
+};
+
+const idleAnimations = [
+  "idle_2",
+  "idle_2",
+  "idle_2",
+  "idle_2",
+  "stretch_1",
+  "stretch_1",
+  "stretch_2",
+  "stretch_4",
+];
+
+const getRandomIdle = () => {
+  return idleAnimations[Math.floor(Math.random() * idleAnimations.length)];
 };
 
 export function Robin(props: { skin: string }) {
@@ -73,59 +88,64 @@ export function Robin(props: { skin: string }) {
   let stretchTimeout: NodeJS.Timeout;
 
   const stretch = () => {
+    const randomIdle = getRandomIdle();
     stretchTimeout = setTimeout(() => {
+      /*
       if (actions.idle_2?.isRunning()) {
         stretch();
         return;
-      }
-      if (actions.stretch_4 && actions.idle_1) {
+      } 
+       */
+      // replace idle_2 with emote ^
+      if (actions[randomIdle] && actions.idle_1) {
         actions["idle_1"].fadeOut(0.5);
 
-        actions.stretch_4
-          .reset()
+        actions[randomIdle]!.reset()
           .setLoop(THREE.LoopRepeat, 1)
-          .fadeIn(0.3)
+          .fadeIn(0.5)
           .play();
-        actions.stretch_4.clampWhenFinished = true;
+        actions[randomIdle]!.clampWhenFinished = true;
         const onStretchFinish = () => {
-          actions.stretch_4?.fadeOut(0.5);
+          actions[randomIdle]!.fadeOut(0.5);
           actions.idle_1?.reset().fadeIn(0.5).play();
-          actions.stretch_4
-            ?.getMixer()
-            .removeEventListener("finished", onStretchFinish);
+          actions[randomIdle]!?.getMixer().removeEventListener(
+            "finished",
+            onStretchFinish
+          );
 
           stretch();
         };
 
-        actions.stretch_4
-          ?.getMixer()
-          .addEventListener("finished", onStretchFinish);
+        actions[randomIdle]!?.getMixer().addEventListener(
+          "finished",
+          onStretchFinish
+        );
       }
-    }, 5000);
+    }, 10000);
   };
 
-  const dance = () => {
-    if (actions["idle_1"]?.isRunning() || actions["stretch_4"]?.isRunning()) {
-      actions["idle_1"]?.isRunning() && actions["idle_1"]?.fadeOut(0.5);
-      actions["stretch_4"]?.isRunning() && actions["stretch_4"].fadeOut(0.5);
-      actions["idle_2"]
-        ?.reset()
-        .setLoop(THREE.LoopRepeat, 1)
-        .fadeIn(0.5)
-        .play();
-      actions["idle_2"]!.clampWhenFinished = true;
+  // const dance = () => {
+  //   if (actions["idle_1"]?.isRunning() || actions["stretch_1"]?.isRunning()) {
+  //     actions["idle_1"]?.isRunning() && actions["idle_1"]?.fadeOut(0.5);
+  //     actions["stretch_1"]?.isRunning() && actions["stretch_1"].fadeOut(0.5);
+  //     actions["idle_2"]
+  //       ?.reset()
+  //       .setLoop(THREE.LoopRepeat, 1)
+  //       .fadeIn(0.5)
+  //       .play();
+  //     actions["idle_2"]!.clampWhenFinished = true;
 
-      const onDanceFinish = () => {
-        actions["idle_2"]?.fadeOut(0.5);
-        actions["idle_1"]?.reset().fadeIn(0.5).play();
-        actions["idle_2"]
-          ?.getMixer()
-          .removeEventListener("finished", onDanceFinish);
-      };
+  //     const onDanceFinish = () => {
+  //       actions["idle_2"]?.fadeOut(0.5);
+  //       actions["idle_1"]?.reset().fadeIn(0.5).play();
+  //       actions["idle_2"]
+  //         ?.getMixer()
+  //         .removeEventListener("finished", onDanceFinish);
+  //     };
 
-      actions["idle_2"]?.getMixer().addEventListener("finished", onDanceFinish);
-    }
-  };
+  //     actions["idle_2"]?.getMixer().addEventListener("finished", onDanceFinish);
+  //   }
+  // };
 
   useEffect(() => {
     if (firstRender) {
@@ -144,20 +164,27 @@ export function Robin(props: { skin: string }) {
 
   return (
     <group
+      castShadow
+      receiveShadow
       {...props}
       dispose={null}
       onClick={() => {
-        dance();
+        // dance();
+        console.log("clicked");
       }}
     >
       <group name="Scene">
         <group
+          castShadow
+          receiveShadow
           name="R_Robin"
           position={[0, 0, 0.843]}
           rotation={[-Math.PI / 2, 0, Math.PI]}
         >
           <primitive object={nodes.Root} />
           <skinnedMesh
+            castShadow
+            receiveShadow
             ref={ref as any}
             name="CH_Susy001"
             geometry={nodes.CH_Susy001.geometry}

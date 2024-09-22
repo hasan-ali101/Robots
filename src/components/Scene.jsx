@@ -9,8 +9,7 @@ const zoom = 1;
 
 const Scene = React.forwardRef((props, ref) => {
   const [showSpotlight, setShowSpotlight] = useState(false);
-  const wood_platform = useGLTF("/round_platform.glb");
-  const wood_platform_2 = useGLTF("/round_platform_2.glb");
+  const wood_platform = useGLTF("/round_platform_2.glb");
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,7 +20,7 @@ const Scene = React.forwardRef((props, ref) => {
   useEffect(() => {
     wood_platform.scene.traverse((child) => {
       if (child.isMesh) {
-        child.material.color.setScalar(6);
+        child.material.color.setScalar(3);
       }
     });
   }, []);
@@ -31,8 +30,6 @@ const Scene = React.forwardRef((props, ref) => {
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        // minAzimuthAngle={-Math.PI / 4}
-        // maxAzimuthAngle={Math.PI / 4}
         minPolarAngle={Math.PI / 2}
         maxPolarAngle={Math.PI / 2}
       />
