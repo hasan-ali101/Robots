@@ -26,12 +26,12 @@ export default function Spot({
       color={"white"}
       ref={light}
       penumbra={1}
-      angle={Math.PI / 1.3}
-      anglePower={1}
+      angle={Math.PI * 1.1}
+      anglePower={6}
       intensity={1}
       position={startPosition}
       decay={1}
-      distance={100}
+      distance={50}
     />
   );
 }

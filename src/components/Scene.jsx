@@ -9,13 +9,18 @@ const zoom = 1;
 
 const Scene = React.forwardRef((props, ref) => {
   const [showSpotlight, setShowSpotlight] = useState(false);
+
   const wood_platform = useGLTF("/round_platform_2.glb");
 
   useEffect(() => {
     setTimeout(() => {
-      setShowSpotlight("/");
-    }, 2100);
-  }, []);
+      if (props.darkMode) {
+        !showSpotlight && setShowSpotlight(true);
+      } else {
+        showSpotlight && setShowSpotlight(false);
+      }
+    }, 800);
+  }, [props.darkMode]);
 
   useEffect(() => {
     wood_platform.scene.traverse((child) => {
@@ -33,9 +38,9 @@ const Scene = React.forwardRef((props, ref) => {
         minPolarAngle={Math.PI / 2}
         maxPolarAngle={Math.PI / 2}
       />
-      <ambientLight intensity={1} castShadow />
+      <ambientLight intensity={props.darkMode ? 0.7 : 1.2} castShadow />
       {showSpotlight && (
-        <Spot startPosition={[0.1, 3, 0]} targetPosition={[0, 0, 0]} />
+        <Spot startPosition={[0, 1.35, 0]} targetPosition={[0, 0, 0]} />
       )}
       <mesh position={[0, -1.73, 0]} ref={ref}>
         <mesh scale={0.65}>
@@ -62,7 +67,7 @@ const Scene = React.forwardRef((props, ref) => {
           </mesh>
           <mesh visible={props.bot === "susy"}>
             <Suspense>
-              <Susy position={[-0.2, 0, 0.2]} path="/susy.glb" />
+              <Susy path="/susy.glb" />
             </Suspense>
           </mesh>
         </mesh>
