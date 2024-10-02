@@ -32,13 +32,20 @@ const ChatArea = () => {
           return (
             <div
               className={cn(
-                message.role === "user"
-                  ? "bg-[#89CB9D] ml-6"
-                  : "bg-[#89B1CB] mr-6",
-                "text-xs p-2 border rounded-lg text-white"
+                message.role === "user" ? "justify-start" : "justify-end",
+                "w-full flex justify-start"
               )}
             >
-              {message.content}
+              <div
+                className={cn(
+                  message.role === "user"
+                    ? "bg-[#89CB9D] mr-10"
+                    : "bg-[#89B1CB] ml-10",
+                  "text-xs p-2 border w-fit rounded-lg text-white"
+                )}
+              >
+                {message.content}
+              </div>
             </div>
           );
         })}
