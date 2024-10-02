@@ -31,7 +31,7 @@ export default function Spot({
       intensity={1}
       position={startPosition}
       decay={1}
-      distance={50}
+      distance={30}
     />
   );
 }

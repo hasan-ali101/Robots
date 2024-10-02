@@ -62,7 +62,7 @@ export function Robin(props: { skin: string }) {
     const onLandFinish = () => {
       actions.land_1?.fadeOut(0.5);
       if (actions.wave_1) {
-        actions.wave_1?.reset().setLoop(THREE.LoopRepeat, 4).fadeIn(0.5).play();
+        actions.wave_1?.reset().setLoop(THREE.LoopRepeat, 2).fadeIn(0.5).play();
         actions.wave_1.clampWhenFinished = true;
       }
 
@@ -121,7 +121,7 @@ export function Robin(props: { skin: string }) {
           onStretchFinish
         );
       }
-    }, 10000);
+    }, 7000);
   };
 
   // const dance = () => {

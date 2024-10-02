@@ -7,6 +7,7 @@ import Image from "next/image";
 import { cn } from "@/utils/cn";
 import { ChevronDown, ChevronUp, Moon, Sun } from "lucide-react";
 import { Day, Night } from "@/components/background-image";
+import ChatArea from "@/components/chat-area";
 
 export default function Home() {
   const [skin, setSkin] = useState<string>("/rt1.png");
@@ -36,10 +37,10 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-[#b0cbdd] flex border-white border-x-4 border-b-4 flex-col justify-center h-screen w-screen">
+      <div className="bg-[#b0cbdd] flex border-white border-x-4 border-b-4 flex-col justify-center max-h-screen h-screen w-screen">
         <div
           id="header"
-          className="bg-[#b0cbdd] flex items-center justify-end px-4 h-14 md:h-24 border-white border-y-4 "
+          className="bg-[#b0cbdd] flex items-center justify-end px-4 h-14 md:h-24 border-white border-y-4 resize-none"
         >
           <div
             onClick={() => {
@@ -53,7 +54,7 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="flex justify-center h-full w-full flex-col md:flex-row">
+        <div className="flex justify-center h-full w-full flex-col max-h-[100%] md:flex-row">
           <div
             className={cn(
               fullScreen ? "h-full" : "h-[55%]",
@@ -141,7 +142,7 @@ export default function Home() {
 
           <div
             id="message area"
-            className="bg-[#e5c7c5] justify-center flex border-white border-t-4 md:border-t-0 md:border-l-4 flex-1"
+            className="bg-[#e5c7c5] justify-center flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 h-1/2 md:h-full w-full md:w-1/2"
           >
             <div
               className={cn(
@@ -165,6 +166,7 @@ export default function Home() {
                 />
               )}
             </div>
+            <ChatArea />
           </div>
         </div>
       </div>
