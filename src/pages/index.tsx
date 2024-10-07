@@ -37,10 +37,10 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-[#b0cbdd] flex border-white border-x-4 border-b-4 flex-col justify-center max-h-screen h-screen w-screen">
+      <div className="bg-[#b0cbdd] flex border-white border-x-4 border-b-4 flex-col justify-center max-h-screen h-screen w-screen overflow-y-auto">
         <div
           id="header"
-          className="bg-[#b0cbdd] flex items-center justify-end px-4 h-14 md:h-24 border-white border-y-4 resize-none"
+          className="bg-[#b0cbdd] flex items-center justify-end px-4 h-14 md:h-24 border-white border-y-4 overflow-auto"
         >
           <div
             onClick={() => {
@@ -54,10 +54,10 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="flex justify-center h-full w-full flex-col max-h-[100%] md:flex-row">
+        <div className="flex justify-center h-full w-full flex-col max-h-[90%] md:flex-row">
           <div
             className={cn(
-              fullScreen ? "h-full" : "h-[55%]",
+              fullScreen ? "h-full" : "h-[50%]",
               "transition-all relative md:h-full w-full md:w-7/12 max-w-[700px] flex items-center justify-center bg-trasparent overflow-hidden"
             )}
           >
@@ -142,31 +142,29 @@ export default function Home() {
 
           <div
             id="message area"
-            className="bg-[#e5c7c5] justify-center flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 h-1/2 md:h-full w-full md:w-1/2"
+            className={cn(
+              fullScreen ? "h-16" : "h-1/2",
+              "bg-[#b0cbdd] justify-start flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 md:h-full w-full md:w-1/2"
+            )}
           >
             <div
+              onClick={() => setFullScreen(!fullScreen)}
               className={cn(
                 !fullScreen && "rounded-b-full",
-                "border h-5 w-full bg-[#b0cbdd] flex justify-center md:hidden"
+                "border h-5 w-full cursor-pointer bg-[#b0cbdd] flex justify-center md:hidden"
               )}
             >
               {fullScreen ? (
-                <ChevronUp
-                  color="white"
-                  size={20}
-                  className="cursor-pointer"
-                  onClick={() => setFullScreen(false)}
-                />
+                <ChevronUp color="white" size={20} className="cursor-pointer" />
               ) : (
                 <ChevronDown
                   size={20}
                   color="white"
                   className="cursor-pointer"
-                  onClick={() => setFullScreen(true)}
                 />
               )}
             </div>
-            <ChatArea />
+            <ChatArea hidden={fullScreen} />
           </div>
         </div>
       </div>

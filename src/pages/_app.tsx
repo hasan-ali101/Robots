@@ -3,5 +3,5 @@ import type { AppProps } from "next/app";
 import { Canvas } from "@react-three/fiber";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component className="relative" {...pageProps} />;
+  return <Component {...pageProps} />;
 }

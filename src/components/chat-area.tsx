@@ -1,9 +1,10 @@
 import { cn } from "@/utils/cn";
+import { ArrowUp, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Message = { role: "user" | "assistant"; content: string; refusal?: null };
 
-const ChatArea = () => {
+const ChatArea = ({ hidden }: { hidden: boolean }) => {
   const [newMessage, setNewMessage] = useState<Message>({
     role: "user",
     content: "",
@@ -25,23 +26,39 @@ const ChatArea = () => {
     setMessages((prevMessages) => [...prevMessages, data]);
   };
 
+  useEffect(() => {
+    const messageContainer = document.getElementById("message-container");
+    messageContainer?.scrollTo(0, messageContainer.scrollHeight);
+  }, [messages]);
+
   return (
-    <div className="w-full h-full flex flex-col justify-between p-6">
-      <div className="h-full md:max-h-[500px] max-h-80 w-full overflow-scroll flex flex-col p-2 gap-2 resize-none">
+    <div
+      className={
+        "bg-[#e5c7c5] md:p-8 w-full max-h-[670px] h-full  border flex flex-col justify-between"
+      }
+    >
+      <div
+        id="message-container"
+        className={cn(
+          hidden ? "hidden" : "flex",
+          "scroll-smooth w-full md:flex overflow-scroll flex-col p-2 gap-2 resize-none"
+        )}
+      >
         {messages.map((message) => {
+          console.log(message);
           return (
             <div
               className={cn(
                 message.role === "user" ? "justify-start" : "justify-end",
-                "w-full flex justify-start"
+                "w-full flex"
               )}
             >
               <div
                 className={cn(
                   message.role === "user"
-                    ? "bg-[#89CB9D] mr-10"
-                    : "bg-[#89B1CB] ml-10",
-                  "text-xs p-2 border w-fit rounded-lg text-white"
+                    ? "bg-[#89B1CB] mr-10"
+                    : "bg-[#89CB9D] ml-10",
+                  "text-sm md:text-bas lg:text-lg p-4 border w-fit rounded-2xl text-white"
                 )}
               >
                 {message.content}
@@ -50,7 +67,7 @@ const ChatArea = () => {
           );
         })}
       </div>
-      <div className="flex ">
+      <div className="flex justify-center relative">
         <input
           onChange={(e) => {
             const newMessage = e.currentTarget.value;
@@ -58,21 +75,29 @@ const ChatArea = () => {
           }}
           value={newMessage.content}
           type="text"
-          className="w-full rounded-l-lg"
+          className={cn(
+            hidden ? "rounded-none" : "rounded-full",
+            "w-full pl-4 pr-14 h-12 md:rounded-full mb-2"
+          )}
           placeholder="Type a message..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              sendMessage();
+              newMessage.content && sendMessage();
             }
           }}
         />
         <button
           onClick={() => {
-            sendMessage();
+            newMessage.content && sendMessage();
           }}
-          className="bg-black rounded-r-lg p-1 text-white "
+          className={cn(
+            newMessage.content
+              ? "bg-[#b6d0e1] cursor-pointer"
+              : "bg-slate-200 cursor-default",
+            "absolute right-4 top-2 rounded-full p-2 text-white "
+          )}
         >
-          send
+          <ArrowUp size={14} />
         </button>
       </div>
     </div>
