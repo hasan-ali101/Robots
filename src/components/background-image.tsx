@@ -21,21 +21,21 @@ export const Day = () => {
     <>
       <Image
         src="/cloudz.png"
-        className="ml-10 w-full h-80 opacity-80 animate-clouds mt-24"
+        className="ml-10 w-full h-80 opacity-80 animate-clouds mt-24 pointer-events-none"
         width={5000}
         height={1000}
         alt="clouds"
       />
       <Image
         src="/cloudz2.png"
-        className="absolute animate-cloudsSlow top-20 left-20 w-full h-80 mt-32 opacity-60"
+        className="absolute animate-cloudsSlow top-20 left-20 w-full h-80 mt-32 opacity-60 pointer-events-none"
         width={5000}
         height={1000}
         alt="clouds"
       />
       <Image
         src="/cloudz2.png"
-        className="absolute animate-clouds top-0 left-0 w-full h-80 mt-40 opacity-40"
+        className="absolute animate-clouds top-0 left-0 w-full h-80 mt-40 opacity-40 pointer-events-none"
         width={5000}
         height={1000}
         alt="clouds"

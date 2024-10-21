@@ -40,8 +40,9 @@ export default function Home() {
       <div className="bg-[#b0cbdd] flex border-white border-x-4 border-b-4 flex-col justify-center max-h-screen h-screen w-screen overflow-y-auto">
         <div
           id="header"
-          className="bg-[#b0cbdd] flex items-center justify-end px-4 h-14 md:h-24 border-white border-y-4 overflow-auto"
+          className="bg-[#b0cbdd] flex items-center justify-between px-4 md:px-12 h-14 md:h-24 border-white border-y-4 overflow-auto"
         >
+          <div className="text-2xl text-white">CHATTERBOTS</div>
           <div
             onClick={() => {
               setDark((prev) => !prev);
@@ -54,11 +55,11 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className="flex justify-center h-full w-full flex-col max-h-[90%] md:flex-row">
+        <div className="flex justify-center h-full w-full flex-col max-h-[90%] md:flex-row h-md:flex-col h-md:items-center">
           <div
             className={cn(
               fullScreen ? "h-full" : "h-[50%]",
-              "transition-all relative md:h-full w-full md:w-7/12 max-w-[700px] flex items-center justify-center bg-trasparent overflow-hidden"
+              "transition-all relative md:h-full w-full h-md:w-full md:w-7/12 max-w-[700px] flex items-center justify-center bg-trasparent overflow-hidden"
             )}
           >
             <div
@@ -144,7 +145,7 @@ export default function Home() {
             id="message area"
             className={cn(
               fullScreen ? "h-16" : "h-1/2",
-              "bg-[#b0cbdd] justify-start flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 md:h-full w-full md:w-1/2"
+              "bg-[#b0cbdd] h-md:items-center h-md:border-l-0 justify-start flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 md:h-full h-md:h-1/2 w-full md:w-1/2 h-md:w-full h-md:"
             )}
           >
             <div

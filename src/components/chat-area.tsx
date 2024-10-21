@@ -34,7 +34,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
   return (
     <div
       className={
-        "bg-[#e5c7c5] md:p-8 w-full max-h-[670px] h-full  border flex flex-col justify-between"
+        "bg-[#e5c7c5] md:p-8 w-full max-h-[670px] max-w-[800px] h-full  border flex flex-col justify-between"
       }
     >
       <div
@@ -67,7 +67,12 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
           );
         })}
       </div>
-      <div className="flex justify-center relative">
+      <div
+        className={cn(
+          hidden ? "mt-2" : "mt-0",
+          "flex justify-center relative mb-6 md:mb-0"
+        )}
+      >
         <input
           onChange={(e) => {
             const newMessage = e.currentTarget.value;
@@ -77,7 +82,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
           type="text"
           className={cn(
             hidden ? "rounded-none" : "rounded-full",
-            "w-full pl-4 pr-14 h-12 md:rounded-full mb-2"
+            "w-full pl-4 pr-14 h-12 md:rounded-full"
           )}
           placeholder="Type a message..."
           onKeyDown={(e) => {
@@ -92,9 +97,9 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
           }}
           className={cn(
             newMessage.content
-              ? "bg-[#b6d0e1] cursor-pointer"
+              ? "bg-[#b0cbdd] cursor-pointer"
               : "bg-slate-200 cursor-default",
-            "absolute right-4 top-2 rounded-full p-2 text-white "
+            "absolute right-4 top-2 rounded-full p-2 text-white"
           )}
         >
           <ArrowUp size={14} />
