@@ -5,7 +5,18 @@ import { Mesh } from "three";
 import Scene from "@/components/Scene";
 import Image from "next/image";
 import { cn } from "@/utils/cn";
-import { ChevronDown, ChevronUp, Moon, Sun } from "lucide-react";
+import {
+  Brain,
+  ChevronDown,
+  ChevronUp,
+  Earth,
+  MessagesSquare,
+  Moon,
+  SlidersHorizontal,
+  SmilePlus,
+  Sun,
+  UserRoundPen,
+} from "lucide-react";
 import { Day, Night } from "@/components/background-image";
 import ChatArea from "@/components/chat-area";
 
@@ -16,6 +27,7 @@ export default function Home() {
   const [bot, setBot] = useState<string>("robin");
   const [fullScreen, setFullScreen] = useState<boolean>(false);
   const [dark, setDark] = useState<boolean>(false);
+  const [customising, setCustomising] = useState<boolean>(false);
 
   const rotate = () => {
     setBot(bot === "susy" ? "robin" : "susy");
@@ -42,7 +54,7 @@ export default function Home() {
           id="header"
           className="bg-[#b0cbdd] flex items-center justify-between px-4 md:px-12 h-14 md:h-24 border-white border-y-4 overflow-auto"
         >
-          <div className="text-2xl text-white">CHATTERBOTS</div>
+          <div className="text-2xl md:text-3xl text-white">CHATTERBOTS</div>
           <div
             onClick={() => {
               setDark((prev) => !prev);
@@ -108,34 +120,53 @@ export default function Home() {
             <div
               id="right-door"
               className={cn(
-                doorsOpen ? "w-10 md:w-12" : "w-1/2",
-                " bg-[#b0cbdd] opacity-80 transition-all duration-[1500ms] absolute z-50 right-0 top-[30%] translate-y-[-50%] h-[700px]"
+                doorsOpen ? "w-14 md:w-20" : "w-1/2",
+                " bg-[#b0cbdd] opacity-90 transition-all duration-[1500ms] absolute z-50 right-0 top-[30%] translate-y-[-50%] h-[700px]"
               )}
             >
               <div
                 className={cn(
                   doorsOpen ? "opacity-100" : "opacity-0",
-                  "text-xs sm:text-sm transition-opacity duration-[2000ms] md:text-base w-full h-full p-4 flex flex-col justify-center items-center  gap-4"
+                  "text-xs sm:text-sm transition-opacity duration-[2000ms] md:text-base w-full h-full p-4 flex flex-col justify-center items-center gap-3"
                 )}
               >
-                <button
-                  className="border p-3 rounded-xl shadow-2xl text-white"
-                  onClick={() => {
-                    rotate();
-                  }}
-                ></button>
-                <button
-                  className="border p-3 shadow-2xl rounded-xl "
-                  onClick={() => {
-                    changeSkin();
-                  }}
-                ></button>
+                <div className="flex flex-col items-center  text-white gap-2">
+                  <button
+                    className={cn(
+                      customising ? "bg-none hover:scale-105" : "bg-white/30",
+                      "border-2 p-1 shadow-2xl rounded-xl transition-transform"
+                    )}
+                    onClick={() => {
+                      setCustomising(false);
+                    }}
+                  >
+                    <MessagesSquare
+                      className="md:w-8 md:h-8 w-6 h-6"
+                      color="white"
+                    />
+                  </button>
+                  <p className="md:text-xs text-2xs">Chat</p>
+                </div>
+                <div className="flex flex-col items-center text-white gap-2">
+                  <button
+                    className={cn(
+                      customising ? "bg-white/30" : "bg-none hover:scale-105",
+                      "border-2 p-1 rounded-xl shadow-2xl text-white transition-transform"
+                    )}
+                    onClick={() => {
+                      setCustomising(true);
+                    }}
+                  >
+                    <SlidersHorizontal className="md:w-8 md:h-8 w-6 h-6" />
+                  </button>
+                  <p className="md:text-xs text-2xs">Customise</p>
+                </div>
               </div>
             </div>
             <div
               id="left-door"
               className={cn(
-                doorsOpen ? "w-10 md:w-12" : "w-1/2",
+                doorsOpen ? "w-14 md:w-20" : "w-1/2",
                 "z-50 bg-[#b0cbdd] opacity-80 transition-all duration-[1500ms] left-0 absolute top-[30%] translate-y-[-50%] h-[700px]"
               )}
             />
@@ -165,7 +196,28 @@ export default function Home() {
                 />
               )}
             </div>
-            <ChatArea hidden={fullScreen} />
+            {customising ? (
+              <div className="grid grid-cols-12 text-white  p-10 w-full gap-y-8 md:gap-x-6 overflow-scroll">
+                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
+                  <UserRoundPen stroke-width="1" size={100} />
+                  <p>Appearance</p>
+                </div>
+                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
+                  <Brain stroke-width="1" size={100} />
+                  <p>Personality</p>
+                </div>
+                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
+                  <SmilePlus stroke-width="1" size={90} />
+                  <p>Emotes</p>
+                </div>
+                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
+                  <Earth stroke-width="1" size={100} />
+                  <p>Environment</p>
+                </div>
+              </div>
+            ) : (
+              <ChatArea hidden={fullScreen} />
+            )}
           </div>
         </div>
       </div>

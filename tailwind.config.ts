@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        "2xs": "0.625rem",
+      },
       screens: {
         "h-base": { raw: "(min-height: 0px)" },
         "h-md": { raw: "(min-height: 1000px)" },

@@ -58,7 +58,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
                   message.role === "user"
                     ? "bg-[#89B1CB] mr-10"
                     : "bg-[#89CB9D] ml-10",
-                  "text-sm md:text-bas lg:text-lg p-4 border w-fit rounded-2xl text-white"
+                  "text-sm lg:text-base p-4 border w-fit rounded-2xl text-white"
                 )}
               >
                 {message.content}
