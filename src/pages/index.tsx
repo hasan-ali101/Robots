@@ -54,7 +54,9 @@ export default function Home() {
           id="header"
           className="bg-[#b0cbdd] flex items-center justify-between px-4 md:px-12 h-14 md:h-24 border-white border-y-4 overflow-auto"
         >
-          <div className="text-2xl md:text-3xl text-white">CHATTERBOTS</div>
+          <div className="text-2xl md:text-3xl text-white font-bold">
+            CHATTERBOTS
+          </div>
           <div
             onClick={() => {
               setDark((prev) => !prev);
@@ -71,7 +73,7 @@ export default function Home() {
           <div
             className={cn(
               fullScreen ? "h-full" : "h-[50%]",
-              "transition-all relative md:h-full w-full h-md:w-full md:w-7/12 max-w-[700px] flex items-center justify-center bg-trasparent overflow-hidden"
+              "transition-all relative md:h-full w-full h-md:h-1/2 h-md:w-full md:w-7/12 max-w-[700px] flex items-center justify-center bg-trasparent overflow-hidden"
             )}
           >
             <div
@@ -98,7 +100,7 @@ export default function Home() {
             </div>
             <div
               id="background-image"
-              className="w-[700px] min-w-[700px] h-[700px] absolute z-30 left-[50%] top-[30%] translate-y-[-50%] translate-x-[-50%] border-x-4 border-white"
+              className="w-[700px] border-b-4 min-w-[700px] h-[700px] absolute z-30 left-[50%] top-[30%] translate-y-[-50%] translate-x-[-50%] border-x-4 border-white"
             >
               <Image
                 src={"/ship_bg.png"}
@@ -130,6 +132,20 @@ export default function Home() {
                   "text-xs sm:text-sm transition-opacity duration-[2000ms] md:text-base w-full h-full p-4 flex flex-col justify-center items-center gap-3"
                 )}
               >
+                <div className="flex flex-col items-center text-white gap-2">
+                  <button
+                    className={cn(
+                      customising ? "bg-white/30" : "bg-none hover:scale-105",
+                      "border-2 p-1 rounded-xl shadow-2xl text-white transition-transform"
+                    )}
+                    onClick={() => {
+                      setCustomising(true);
+                    }}
+                  >
+                    <SlidersHorizontal className="md:w-8 md:h-8 w-6 h-6" />
+                  </button>
+                  <p className="md:text-xs text-2xs">Customise</p>
+                </div>
                 <div className="flex flex-col items-center  text-white gap-2">
                   <button
                     className={cn(
@@ -147,20 +163,6 @@ export default function Home() {
                   </button>
                   <p className="md:text-xs text-2xs">Chat</p>
                 </div>
-                <div className="flex flex-col items-center text-white gap-2">
-                  <button
-                    className={cn(
-                      customising ? "bg-white/30" : "bg-none hover:scale-105",
-                      "border-2 p-1 rounded-xl shadow-2xl text-white transition-transform"
-                    )}
-                    onClick={() => {
-                      setCustomising(true);
-                    }}
-                  >
-                    <SlidersHorizontal className="md:w-8 md:h-8 w-6 h-6" />
-                  </button>
-                  <p className="md:text-xs text-2xs">Customise</p>
-                </div>
               </div>
             </div>
             <div
@@ -176,48 +178,30 @@ export default function Home() {
             id="message area"
             className={cn(
               fullScreen ? "h-16" : "h-1/2",
-              "bg-[#b0cbdd] h-md:items-center h-md:border-l-0 justify-start flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 md:h-full h-md:h-1/2 w-full md:w-1/2 h-md:w-full h-md:"
+              "bg-[#b0cbdd] h-md:items-center h-md:border-l-0 justify-start flex flex-col border-white border-t-4 md:border-t-0 md:border-l-4 md:h-full h-md:h-full w-full md:w-1/2 h-md:w-full "
             )}
           >
-            <div
-              onClick={() => setFullScreen(!fullScreen)}
-              className={cn(
-                !fullScreen && "rounded-b-full",
-                "border h-5 w-full cursor-pointer bg-[#b0cbdd] flex justify-center md:hidden"
-              )}
-            >
-              {fullScreen ? (
-                <ChevronUp color="white" size={20} className="cursor-pointer" />
-              ) : (
-                <ChevronDown
-                  size={20}
-                  color="white"
-                  className="cursor-pointer"
-                />
-              )}
-            </div>
-            {customising ? (
-              <div className="grid grid-cols-12 text-white  p-10 w-full gap-y-8 md:gap-x-6 overflow-scroll">
-                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
+            {customising && (
+              <div className="grid bg-[#e5c7c5] h-full grid-cols-12 text-white  p-10 w-full gap-y-8 md:gap-x-6 overflow-auto max-w-[700px] max-h-[550px]">
+                <div className="border-slate-100 bg-[#b0cbdd]/70 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
                   <UserRoundPen stroke-width="1" size={100} />
                   <p>Appearance</p>
                 </div>
-                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
+                <div className="border-slate-100 border-4 bg-[#b0cbdd]/70 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
                   <Brain stroke-width="1" size={100} />
                   <p>Personality</p>
                 </div>
-                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
+                <div className="border-slate-100 border-4 bg-[#b0cbdd]/70 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-1 hover:scale-105 transition-transform cursor-pointer">
                   <SmilePlus stroke-width="1" size={90} />
                   <p>Emotes</p>
                 </div>
-                <div className="border-slate-100 border-4 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
+                <div className="border-slate-100  border-4 bg-[#b0cbdd]/70 flex flex-col px-4 justify-center items-center p-2 opacity-80 w-full rounded-lg md:col-span-6 col-span-12 md:col-start-7 hover:scale-105 transition-transform cursor-pointer">
                   <Earth stroke-width="1" size={100} />
                   <p>Environment</p>
                 </div>
               </div>
-            ) : (
-              <ChatArea hidden={fullScreen} />
             )}
+            <ChatArea hidden={customising} />
           </div>
         </div>
       </div>
