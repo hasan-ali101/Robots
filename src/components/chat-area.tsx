@@ -33,16 +33,14 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
 
   return (
     <div
-      className={
-        "bg-[#e5c7c5] md:p-8 w-full max-h-[670px] max-w-[800px] h-full  border flex flex-col justify-between"
-      }
+      className={cn(
+        hidden ? "hidden" : "flex",
+        " bg-secondary  md:p-8 w-full max-h-[550px] max-w-[700px] h-full border  flex-col justify-between"
+      )}
     >
       <div
         id="message-container"
-        className={cn(
-          hidden ? "hidden" : "flex",
-          "scroll-smooth w-full md:flex overflow-scroll flex-col p-2 gap-2 resize-none"
-        )}
+        className="scroll-smooth w-full md:flex overflow-auto flex-col py-2 px-4 gap-2 resize-none"
       >
         {messages.map((message) => {
           console.log(message);
@@ -53,16 +51,16 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
                 "w-full flex"
               )}
             >
-              <div
+              <p
                 className={cn(
                   message.role === "user"
-                    ? "bg-[#89B1CB] mr-10"
-                    : "bg-[#89CB9D] ml-10",
-                  "text-sm lg:text-base p-4 border w-fit rounded-2xl text-white"
+                    ? "bg-primary/50 mr-10"
+                    : "bg-primary ml-10",
+                  "text-sm lg:text-base p-4 mb-1 border w-fit rounded-2xl text-white"
                 )}
               >
                 {message.content}
-              </div>
+              </p>
             </div>
           );
         })}
@@ -70,7 +68,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
       <div
         className={cn(
           hidden ? "mt-2" : "mt-0",
-          "flex justify-center relative mb-6 md:mb-0"
+          "flex justify-center relative mb-6 md:mb-0 mx-6"
         )}
       >
         <input
