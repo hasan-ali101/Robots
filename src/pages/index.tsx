@@ -11,7 +11,7 @@ import SlidingDoors from "@/components/sliding-doors";
 import Customisation from "@/components/customisation";
 
 export default function Home() {
-  const [skin, setSkin] = useState<string>("/rt7.png");
+  const [skin, setSkin] = useState<string>("/rt1.png");
   const group = useRef<Mesh>(null!);
   const [night, setNight] = useState<boolean>(false);
   const [customising, setCustomising] = useState<boolean>(false);
