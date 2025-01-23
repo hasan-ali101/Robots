@@ -12,8 +12,6 @@ export default function Spot({
   const light = useRef<SpotLightImpl>(null);
 
   useEffect(() => {
-    // Ensure the light reference exists before setting the target position
-
     if (light.current) {
       light.current.target.position.set(...targetPosition);
       light.current.target.updateMatrixWorld();

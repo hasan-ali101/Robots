@@ -43,13 +43,13 @@ const getRandomIdle = () => {
   return idleAnimations[Math.floor(Math.random() * idleAnimations.length)];
 };
 
-export function Robin(props: { skin: string }) {
+export function Robin(props: { texture: string }) {
   const { scene, animations } = useGLTF("/robin_5.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as GLTFResult;
   const { actions, ref } = useAnimations(animations);
   const originalMaterial = nodes.CH_Susy001.material as any;
-  const texture = useTexture(props.skin || "/rt1.png");
+  const texture = useTexture(props.texture || "/rt1.png");
   const [firstRender, setFirstRender] = useState(true);
 
   const entryAnimation = () => {

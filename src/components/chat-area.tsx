@@ -1,10 +1,10 @@
 import { cn } from "@/utils/cn";
-import { ArrowUp, Send } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Message = { role: "user" | "assistant"; content: string; refusal?: null };
 
-const ChatArea = ({ hidden }: { hidden: boolean }) => {
+const ChatArea = () => {
   const [newMessage, setNewMessage] = useState<Message>({
     role: "user",
     content: "",
@@ -34,8 +34,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
   return (
     <div
       className={cn(
-        hidden ? "hidden" : "flex",
-        " bg-secondary  md:p-8 w-full max-h-[550px] max-w-[700px] h-full border  flex-col justify-between"
+        "flex bg-secondary  md:p-8 w-full max-h-[550px] max-w-[700px] h-full border  flex-col justify-between"
       )}
     >
       <div
@@ -66,10 +65,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
         })}
       </div>
       <div
-        className={cn(
-          hidden ? "mt-2" : "mt-0",
-          "flex justify-center relative mb-6 md:mb-0 mx-6"
-        )}
+        className={cn("flex justify-center mt-0 relative mb-6 md:mb-0 mx-6")}
       >
         <input
           onChange={(e) => {
@@ -78,10 +74,7 @@ const ChatArea = ({ hidden }: { hidden: boolean }) => {
           }}
           value={newMessage.content}
           type="text"
-          className={cn(
-            hidden ? "rounded-none" : "rounded-full",
-            "w-full pl-4 pr-14 h-12 md:rounded-full"
-          )}
+          className={cn("w-full pl-4 pr-14 h-12 md:rounded-full rounded-full")}
           placeholder="Type a message..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {

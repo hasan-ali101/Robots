@@ -16,6 +16,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/robin.jsx", "src/components/Scene.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/robin.jsx", "src/components/scene.tsx"],
   "exclude": ["node_modules"]
 }
